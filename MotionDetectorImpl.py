@@ -11,7 +11,7 @@ conf = json.load(open("conf.json"))
 
 print "[INFO] Initializing..."
 # initialize the camera and grab a reference to the raw camera capture
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture(1)
 
 avg = None
 lastUploaded = datetime.datetime.now()

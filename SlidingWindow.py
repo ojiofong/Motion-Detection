@@ -16,31 +16,33 @@ def sliding_window(image, stepSize, windowSize):
             yield (x, y, image[y:y + windowSize[1], x:x + windowSize[0]])
 
 
-# Load the image
-imagePath = "images/test.jpg"
-image = cv2.imread(imagePath)
+if __name__ == '__main__':
 
-# Optionally scale down the image pixel size for faster sliding
-scale = 0.5
-image = cv2.resize(image, None, fx=scale, fy=scale)
+    # Load the image
+    imagePath = "images/test.jpg"
+    image = cv2.imread(imagePath)
 
-# Define the window width/height relative to the image width's size
-relativeSize = image.shape[0] / 3
-(winW, winH) = (relativeSize, relativeSize)
-# (winW, winH) = (128, 128)
+    # Optionally scale down the image pixel size for faster sliding
+    scale = 0.5
+    image = cv2.resize(image, None, fx=scale, fy=scale)
 
-# loop over the sliding window for each layer of the pyramid
-for (x, y, window) in sliding_window(image, stepSize=32, windowSize=(winW, winH)):
-    # if the window does not meet our desired window size, ignore it
-    if window.shape[0] != winH or window.shape[1] != winW:
-        continue
+    # Define the window width/height relative to the image width's size
+    relativeSize = image.shape[0] / 3
+    (winW, winH) = (relativeSize, relativeSize)
+    # (winW, winH) = (128, 128)
 
-    # Process window frame if needed here for e.g. using a ML classifier
-    # processWindow(window)
+    # loop over the sliding window for each layer of the pyramid
+    for (x, y, window) in sliding_window(image, stepSize=32, windowSize=(winW, winH)):
+        # if the window does not meet our desired window size, ignore it
+        if window.shape[0] != winH or window.shape[1] != winW:
+            continue
 
-    # Optionally preview the window over the original image
-    clone = image.copy()
-    cv2.rectangle(clone, (x, y), (x + winW, y + winH), (0, 255, 0), 2)
-    cv2.imshow("Window", clone)
-    if cv2.waitKey(1) & 0xff == ord('q'):
-        break
+        # Process window frame if needed here for e.g. using a ML classifier
+        # processWindow(window)
+
+        # Optionally preview the window over the original image
+        clone = image.copy()
+        cv2.rectangle(clone, (x, y), (x + winW, y + winH), (0, 255, 0), 2)
+        cv2.imshow("Window", clone)
+        if cv2.waitKey(1) & 0xff == ord('q'):
+            break
