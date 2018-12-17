@@ -29,8 +29,8 @@ alarmManager = AlarmManager()
 
 def preprocessImage(image):
     h, w, channels = image.shape
-    y1, y2 = 0, h-50
-    x1, x2 = 80, w-50
+    y1, y2 = 0, h-90
+    x1, x2 = 120, w-1
     crop_img = image[y1:y2, x1:x2].copy()
     return crop_img
 
